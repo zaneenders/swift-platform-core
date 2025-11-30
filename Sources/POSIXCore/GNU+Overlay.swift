@@ -39,8 +39,7 @@ public var TIOCGWINSZ: CUnsignedLong {
 }
 
 #else
-// Try to import Musl for non-GNU Linux (musl)
-// This may require explicit include path when building
+
 #if canImport(Musl)
 @_exported
 import Musl

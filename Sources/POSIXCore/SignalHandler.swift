@@ -160,7 +160,6 @@ private final actor Registry {
     // to `__sigaction_handler.sa_handler`.
     action.__sigaction_handler.sa_handler = handler
     #else
-    // musl uses the standard POSIX interface with __sa_handler
     action.__sa_handler.sa_handler = handler
     #endif
     #else

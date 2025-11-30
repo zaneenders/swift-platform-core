@@ -38,6 +38,44 @@ public var TIOCGWINSZ: CUnsignedLong {
   CUnsignedLong(Glibc.TIOCGWINSZ)
 }
 
+#else
+// Try to import Musl for non-GNU Linux (musl)
+// This may require explicit include path when building
+#if canImport(Musl)
+@_exported
+import Musl
+
+@_transparent
+package var _SC_PAGESIZE: CInt {
+  CInt(Musl._SC_PAGESIZE)
+}
+
+@_transparent
+public var ECHO: tcflag_t {
+  tcflag_t(Musl.ECHO)
+}
+
+@_transparent
+public var ICANON: tcflag_t {
+  tcflag_t(Musl.ICANON)
+}
+
+@_transparent
+public var ICRNL: tcflag_t {
+  tcflag_t(Musl.ICRNL)
+}
+
+@_transparent
+public var IXON: tcflag_t {
+  tcflag_t(Musl.IXON)
+}
+
+@_transparent
+public var TIOCGWINSZ: CUnsignedLong {
+  CUnsignedLong(Musl.TIOCGWINSZ)
+}
+#endif
+
 #endif
 
 #endif

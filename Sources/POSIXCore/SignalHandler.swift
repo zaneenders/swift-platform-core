@@ -154,10 +154,15 @@ private final actor Registry {
       _ = write(Registry.fds[1], &signal, 1)
     }
     #if os(Linux)
+    #if GNU
     // TODO(compnerd) As per the IEEE 1003.1/1003.1b and X/Open standards, the
     // GNU C runtime replaced the `sa_handler` member with a macro which expands
     // to `__sigaction_handler.sa_handler`.
     action.__sigaction_handler.sa_handler = handler
+    #else
+    // musl uses the standard POSIX interface with __sa_handler
+    action.__sa_handler.sa_handler = handler
+    #endif
     #else
     action.__sigaction_u.__sa_handler = handler
     #endif
